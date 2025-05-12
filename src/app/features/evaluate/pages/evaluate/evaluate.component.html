@@ -1,0 +1,55 @@
+<h2 class="text-xl font-bold mb-4 text-gray-500">Evaluate Flag</h2>
+
+<form
+  [formGroup]="form"
+  (ngSubmit)="evaluate()"
+  class="space-y-4 max-w-xl text-gray-500"
+>
+  <div>
+    <label>Flag Key</label>
+    <input formControlName="flagKey" class="w-full border px-3 py-2 rounded" />
+  </div>
+
+  <div>
+    <label class="block mb-1">Kullanıcı Özellikleri (traits)</label>
+    <div formArrayName="traits">
+      <div
+        *ngFor="let trait of traits.controls; let i = index"
+        [formGroupName]="i"
+        [formGroupName]="i"
+        class="flex gap-2 mb-2"
+      >
+        <input
+          formControlName="key"
+          placeholder="Özellik"
+          class="flex-1 border px-2 py-1 rounded"
+        />
+        <input
+          formControlName="value"
+          placeholder="Değer"
+          class="flex-1 border px-2 py-1 rounded"
+        />
+        <button type="button" (click)="removeTrait(i)">🗑️</button>
+      </div>
+      <button
+        type="button"
+        (click)="addTrait()"
+        class="text-blue-600 underline"
+      >
+        + Özellik Ekle
+      </button>
+    </div>
+  </div>
+
+  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+    Evaluate
+  </button>
+</form>
+
+<div
+  *ngIf="result !== undefined"
+  class="mt-6 p-4 rounded text-white"
+  [ngClass]="result ? 'bg-green-600' : 'bg-red-600'"
+>
+  Flag durumu: <strong>{{ result ? "AKTİF" : "PASİF" }}</strong>
+</div>

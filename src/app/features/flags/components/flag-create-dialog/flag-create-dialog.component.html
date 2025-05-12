@@ -1,0 +1,48 @@
+<div class="bg-white p-6 rounded text-gray-500 shadow w-[400px]">
+  <h2 class="text-xl font-semibold mb-4">Yeni Feature Flag</h2>
+  if()
+  <form [formGroup]="form" (ngSubmit)="save()" class="space-y-4 text-gray-500">
+    <div>
+      <label class="block text-sm font-medium">Flag Adı</label>
+      <input
+        type="text"
+        formControlName="name"
+        class="w-full border px-3 py-2 rounded"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-medium">Key</label>
+      <input
+        type="text"
+        formControlName="key"
+        class="w-full border px-3 py-2 rounded"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Açıklama</label>
+      <input
+        type="text"
+        formControlName="description"
+        class="w-full border px-3 py-2 rounded"
+      />
+    </div>
+
+    <!-- <div class="flex items-center gap-2">
+      <input type="checkbox" formControlName="isEnabled" />
+      <label>Başlangıçta aktif mi?</label>
+    </div> -->
+
+    <div class="flex justify-end gap-2 mt-4">
+      <button type="button" (click)="cancel()" class="px-4 py-2 border rounded">
+        Vazgeç
+      </button>
+      <button
+        type="submit"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Kaydet
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,26 @@
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-800 text-white p-4">
+    <h1 class="text-xl font-bold mb-6">Switchly</h1>
+    <nav class="flex flex-col space-y-3">
+      <a
+        routerLink="/flags"
+        routerLinkActive="text-blue-400"
+        class="hover:text-blue-300"
+        >Feature Flags</a
+      >
+
+      <a
+        routerLink="/evaluate"
+        routerLinkActive="text-blue-400"
+        class="hover:text-blue-300"
+        >Evaluate</a
+      >
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 overflow-y-auto bg-gray-100">
+    <router-outlet></router-outlet>
+  </main>
+</div>

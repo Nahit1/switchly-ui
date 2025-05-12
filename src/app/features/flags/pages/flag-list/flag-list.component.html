@@ -1,0 +1,79 @@
+<div class="p-8">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-semibold">Feature Flags</h2>
+    <button (click)="openCreateDialog()" class="btn btn-primary">
+      + Yeni Ekle
+    </button>
+  </div>
+
+  <table class="w-full table-auto border border-gray-300 shadow text-gray-500">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="text-left p-2">Name</th>
+        <th class="text-left p-2">Key</th>
+        <th class="text-left p-2">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if(flags.length === 0) {
+      <tr>
+        <td colspan="2" class="text-center p-4">No flags available</td>
+      </tr>
+      }@else {
+      <ng-container *ngFor="let flag of flags">
+        <tr class="border-t border-gray-200">
+          <td class="font-medium p-2">{{ flag.name }}</td>
+          <td class="font-medium p-2">{{ flag.key }}</td>
+          <td class="font-medium p-2">{{ flag.description }}</td>
+          <td>
+            <input
+              type="checkbox"
+              [checked]="flag.isEnabled"
+              class="toggle toggle-primary bg-gray-500"
+            />
+          </td>
+          <td>
+            <div class="text-right mt-2">
+              <button class="ml-2 btn btn-info" (click)="evaluate(flag)">
+                Evaluate
+              </button>
+            </div>
+          </td>
+
+          <td class="p-2">
+            <div class="text-right mt-2">
+              <button
+                (click)="openAddRuleDialog(flag.id)"
+                class="btn btn-accent"
+              >
+                Rule Ekle
+              </button>
+            </div>
+          </td>
+        </tr>
+        <div>
+          <div *ngIf="flag.featureSegments.length > 0; else noSegments">
+            <ul class="list-inside text-blue-500 px-2">
+              <li
+                class="mb-2 flex items-center justify-between"
+                *ngFor="let segment of flag.featureSegments"
+              >
+                <div>{{ segment.property }}</div>
+                -
+                <div>{{ segment.operator }}</div>
+                -
+                <div>{{ segment.value }}</div>
+                <button class="btn btn-error btn-xs">Remove</button>
+              </li>
+            </ul>
+          </div>
+          <ng-template #noSegments>
+            <div class="text-sm text-red-700 italic px-2">Segment yok</div>
+          </ng-template>
+        </div>
+      </ng-container>
+
+      }
+    </tbody>
+  </table>
+</div>

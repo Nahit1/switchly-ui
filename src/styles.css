@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@plugin "daisyui";
+
+.cdk-overlay-dark-backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.dialog-panel-class {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 480px;
+}
