@@ -59,8 +59,10 @@ export class FlagListComponent {
     }
     const payload = {
       flagKey: model.key,
+      Env: 'dev',
       userContextModel: {
         traits: traitObject,
+        Env: 'dev',
       },
     };
 
@@ -70,10 +72,16 @@ export class FlagListComponent {
   }
 
   openAddRuleDialog(flagId: string) {
-    this.dialog.open(SegmentRuleCreateDialogComponent, {
-      data: { flagId },
-      backdropClass: 'cdk-overlay-dark-backdrop',
-      panelClass: 'dialog-panel-class',
-    });
+    this.dialog
+      .open(SegmentRuleCreateDialogComponent, {
+        data: { flagId },
+        backdropClass: 'cdk-overlay-dark-backdrop',
+        panelClass: 'dialog-panel-class',
+      })
+      .closed.subscribe((result) => {
+        if (result) {
+          this.loadFlags();
+        }
+      });
   }
 }
