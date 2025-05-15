@@ -12,7 +12,7 @@ export class SegmentRuleService {
 
   getSegmentRules(flagId: string): Observable<SegmentRuleDto[]> {
     return this.http.get<SegmentRuleDto[]>(
-      `${this.baseUrl}/segment-rules?featureFlagId=${flagId}`
+      `${this.baseUrl}/segmentRules?featureFlagId=${flagId}`
     );
   }
 
@@ -20,7 +20,7 @@ export class SegmentRuleService {
     payload: CreateSegmentRuleRequest
   ): Observable<SegmentRuleDto> {
     return this.http.post<SegmentRuleDto>(
-      `${this.baseUrl}/segment-rules`,
+      `${this.baseUrl}/segmentRules`,
       payload
     );
   }

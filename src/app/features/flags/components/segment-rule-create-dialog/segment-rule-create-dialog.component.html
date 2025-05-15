@@ -3,17 +3,23 @@
 <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4 text-gray-500">
   <div>
     <label class="block text-sm font-medium">Property</label>
-    <input formControlName="property" class="w-full border px-2 py-1 rounded" />
+    <input formControlName="property" class="w-full input" />
   </div>
 
-  <div>
+  <!-- <div>
     <label class="block text-sm font-medium">Operatör</label>
     <input formControlName="operator" class="w-full border px-2 py-1 rounded" />
-  </div>
+  </div> -->
+  <label class="block text-sm font-medium">Operatör</label>
+  <select class="select" formControlName="operator">
+    <option value="equals">Equals</option>
+    <option value="contains">Contains</option>
+    <option value="except">Except</option>
+  </select>
 
   <div>
     <label class="block text-sm font-medium">Değer</label>
-    <input formControlName="value" class="w-full border px-2 py-1 rounded" />
+    <input formControlName="value" class="w-full input" />
   </div>
 
   <div>
@@ -23,17 +29,7 @@
       formControlName="rolloutPercentage"
       min="0"
       max="100"
-      class="w-full border px-2 py-1 rounded"
-    />
-  </div>
-
-  <div>
-    <label class="block text-sm font-medium">Sıra (Order)</label>
-    <input
-      type="number"
-      formControlName="order"
-      min="0"
-      class="w-full border px-2 py-1 rounded"
+      class="w-full input"
     />
   </div>
 

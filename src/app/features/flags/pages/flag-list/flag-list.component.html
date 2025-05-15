@@ -29,6 +29,7 @@
             <input
               type="checkbox"
               [checked]="flag.isEnabled"
+              (change)="toggleFlag(flag)"
               class="toggle toggle-primary bg-gray-500"
             />
           </td>
@@ -63,7 +64,12 @@
                 <div>{{ segment.operator }}</div>
                 -
                 <div>{{ segment.value }}</div>
-                <button class="btn btn-error btn-xs">Remove</button>
+                <button
+                  class="btn btn-error btn-xs ml-2"
+                  (click)="removeSegmentRule(segment.id)"
+                >
+                  Remove
+                </button>
               </li>
             </ul>
           </div>

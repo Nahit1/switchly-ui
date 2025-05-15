@@ -84,4 +84,31 @@ export class FlagListComponent {
         }
       });
   }
+  removeSegmentRule(ruleId: string) {
+    console.log(ruleId);
+    this.flagService.deleteRule(ruleId).subscribe({
+      next: () => {
+        this.loadFlags();
+      },
+      error: () => {
+        alert('Segment kuralı silinemedi.');
+      },
+    });
+  }
+
+  toggleFlag(flag: GetFeatureFlag) {
+    const updatedFlag: FeatureFlag = {
+      ...flag,
+      isEnabled: !flag.isEnabled,
+    };
+
+    this.flagService.update(flag.id, updatedFlag).subscribe({
+      next: () => {
+        this.loadFlags();
+      },
+      error: () => {
+        alert('Flag güncellenemedi.');
+      },
+    });
+  }
 }

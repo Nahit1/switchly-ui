@@ -33,9 +33,9 @@ export class FlagCreateDialogComponent {
     const model: FeatureFlag = {
       name: this.form.value.name ?? '',
       description: this.form.value.description ?? '',
-      isEnabled: false,
+      isEnabled: true,
       key: this.form.value.key ?? '',
-      OrganizationId: '7328f32e-a526-439a-aded-c316366f55b5',
+      OrganizationId: '13359fc8-8f48-4c84-8bef-d123a595f25c',
     };
     this.flagService.create(model).subscribe({
       next: () => {
