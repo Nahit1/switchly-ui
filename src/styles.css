@@ -1,13 +1,134 @@
 @import "tailwindcss";
-@plugin "daisyui";
 
+/* DaisyUI theme configuration */
+:root {
+  --daisy-theme: winter;
+}
+
+:root {
+  --primary-color: #0891b2; /* cyan-600 */
+  --secondary-color: #f0f9ff; /* sky-50 */
+  --accent-color: #0284c7; /* sky-600 */
+  --text-primary: #334155; /* slate-700 */
+  --text-secondary: #64748b; /* slate-500 */
+  --border-color: #e2e8f0; /* slate-200 */
+  --hover-color: #e0f2fe; /* sky-100 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+}
+
+body {
+  color: var(--text-primary);
+  background-color: #f8fafc;
+  font-family: "Inter", sans-serif;
+}
+
+/* Button Styling */
+.btn {
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+}
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.btn-primary:hover {
+  filter: brightness(110%);
+}
+
+.btn-accent {
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: white !important;
+}
+
+.btn-info {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+  color: white !important;
+}
+
+.btn-error {
+  background-color: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: white !important;
+}
+
+/* Input Styling */
+input,
+select,
+textarea {
+  border-color: var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.5rem 0.75rem;
+  transition: border-color 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-color) !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.2);
+}
+
+/* Table Styling */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+table thead {
+  background-color: var(--secondary-color);
+  color: var(--text-primary);
+}
+
+table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+table tr:hover {
+  background-color: var(--hover-color);
+}
+
+/* Card Styling */
+.card {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Dialog Styling */
 .cdk-overlay-dark-backdrop {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
 .dialog-panel-class {
   background-color: white;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
   max-width: 480px;
+  box-shadow: var(--shadow-lg);
 }

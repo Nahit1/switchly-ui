@@ -1,55 +1,96 @@
-<h2 class="text-xl font-bold mb-4 text-gray-500">Evaluate Flag</h2>
+<div class="mb-8">
+  <h1 class="text-2xl font-bold text-slate-800">Evaluate Flag</h1>
+  <p class="text-slate-500 mt-1">Test your feature flags with different user traits</p>
+</div>
 
-<form
-  [formGroup]="form"
-  (ngSubmit)="evaluate()"
-  class="space-y-4 max-w-xl text-gray-500"
->
-  <div>
-    <label>Flag Key</label>
-    <input formControlName="flagKey" class="w-full border px-3 py-2 rounded" />
-  </div>
+<div class="bg-white rounded-lg shadow-sm p-6 max-w-2xl">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="evaluate()"
+    class="space-y-6"
+  >
+    <div>
+      <label class="block text-sm font-medium text-slate-700 mb-1">Flag Key</label>
+      <input 
+        formControlName="flagKey" 
+        class="w-full border border-slate-200 px-4 py-2.5 rounded-md focus:ring-2 focus:ring-primary-color/20" 
+        placeholder="Enter flag key"
+      />
+    </div>
 
-  <div>
-    <label class="block mb-1">Kullanıcı Özellikleri (traits)</label>
-    <div formArrayName="traits">
-      <div
-        *ngFor="let trait of traits.controls; let i = index"
-        [formGroupName]="i"
-        [formGroupName]="i"
-        class="flex gap-2 mb-2"
-      >
-        <input
-          formControlName="key"
-          placeholder="Özellik"
-          class="flex-1 border px-2 py-1 rounded"
-        />
-        <input
-          formControlName="value"
-          placeholder="Değer"
-          class="flex-1 border px-2 py-1 rounded"
-        />
-        <button type="button" (click)="removeTrait(i)">🗑️</button>
+    <div>
+      <div class="flex justify-between items-center mb-2">
+        <label class="block text-sm font-medium text-slate-700">Kullanıcı Özellikleri (traits)</label>
+        <button
+          type="button"
+          (click)="addTrait()"
+          class="text-primary-color hover:text-primary-color/80 text-sm font-medium flex items-center gap-1 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          Özellik Ekle
+        </button>
       </div>
-      <button
-        type="button"
-        (click)="addTrait()"
-        class="text-blue-600 underline"
-      >
-        + Özellik Ekle
+      
+      <div formArrayName="traits" class="space-y-3 bg-slate-50 p-4 rounded-md">
+        <div *ngIf="traits.controls.length === 0" class="text-center py-4 text-slate-400 text-sm italic">
+          Henüz özellik eklenmedi
+        </div>
+        
+        <div
+          *ngFor="let trait of traits.controls; let i = index"
+          [formGroupName]="i"
+          class="flex gap-3 items-center bg-white p-3 rounded-md shadow-sm"
+        >
+          <div class="flex-1">
+            <input
+              formControlName="key"
+              placeholder="Özellik"
+              class="w-full border border-slate-200 px-3 py-2 rounded-md text-sm"
+            />
+          </div>
+          <div class="flex-1">
+            <input
+              formControlName="value"
+              placeholder="Değer"
+              class="w-full border border-slate-200 px-3 py-2 rounded-md text-sm"
+            />
+          </div>
+          <button 
+            type="button" 
+            (click)="removeTrait(i)"
+            class="text-slate-400 hover:text-red-500 transition-colors p-1 rounded-full hover:bg-red-50"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-2">
+      <button type="submit" class="btn btn-primary px-6 py-2.5">
+        Evaluate
       </button>
     </div>
-  </div>
-
-  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
-    Evaluate
-  </button>
-</form>
+  </form>
+</div>
 
 <div
   *ngIf="result !== undefined"
-  class="mt-6 p-4 rounded text-white"
-  [ngClass]="result ? 'bg-green-600' : 'bg-red-600'"
+  class="mt-6 p-6 rounded-lg text-white max-w-2xl flex items-center gap-3"
+  [ngClass]="result ? 'bg-emerald-500' : 'bg-rose-500'"
 >
-  Flag durumu: <strong>{{ result ? "AKTİF" : "PASİF" }}</strong>
+  <svg *ngIf="result" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <svg *ngIf="!result" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <div>
+    <div class="font-medium">Flag durumu:</div>
+    <div class="text-xl font-bold">{{ result ? "AKTİF" : "PASİF" }}</div>
+  </div>
 </div>
