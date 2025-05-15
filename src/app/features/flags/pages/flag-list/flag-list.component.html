@@ -1,79 +1,106 @@
-<div class="p-8">
-  <div class="flex justify-between items-center mb-4">
-    <h2 class="text-2xl font-semibold">Feature Flags</h2>
-    <button (click)="openCreateDialog()" class="btn btn-primary">
-      + Yeni Ekle
-    </button>
+<div>
+  <div class="mb-8">
+    <div class="flex justify-between items-center mb-4">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-800">Feature Flags</h1>
+        <p class="text-slate-500 mt-1">Manage and configure your feature flags</p>
+      </div>
+      <button (click)="openCreateDialog()" class="btn btn-primary flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Yeni Ekle
+      </button>
+    </div>
   </div>
 
-  <table class="w-full table-auto border border-gray-300 shadow text-gray-500">
-    <thead class="bg-gray-100">
-      <tr>
-        <th class="text-left p-2">Name</th>
-        <th class="text-left p-2">Key</th>
-        <th class="text-left p-2">Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      @if(flags.length === 0) {
-      <tr>
-        <td colspan="2" class="text-center p-4">No flags available</td>
-      </tr>
-      }@else {
-      <ng-container *ngFor="let flag of flags">
-        <tr class="border-t border-gray-200">
-          <td class="font-medium p-2">{{ flag.name }}</td>
-          <td class="font-medium p-2">{{ flag.key }}</td>
-          <td class="font-medium p-2">{{ flag.description }}</td>
-          <td>
-            <input
-              type="checkbox"
-              [checked]="flag.isEnabled"
-              class="toggle toggle-primary bg-gray-500"
-            />
-          </td>
-          <td>
-            <div class="text-right mt-2">
-              <button class="ml-2 btn btn-info" (click)="evaluate(flag)">
-                Evaluate
-              </button>
-            </div>
-          </td>
-
-          <td class="p-2">
-            <div class="text-right mt-2">
-              <button
-                (click)="openAddRuleDialog(flag.id)"
-                class="btn btn-accent"
-              >
-                Rule Ekle
-              </button>
+  <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+    <table class="w-full table-auto">
+      <thead>
+        <tr>
+          <th class="text-left p-4 bg-slate-50 text-slate-700">Name</th>
+          <th class="text-left p-4 bg-slate-50 text-slate-700">Key</th>
+          <th class="text-left p-4 bg-slate-50 text-slate-700">Description</th>
+          <th class="text-left p-4 bg-slate-50 text-slate-700">Status</th>
+          <th class="text-left p-4 bg-slate-50 text-slate-700" colspan="2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if(flags.length === 0) {
+        <tr>
+          <td colspan="5" class="text-center p-8 text-slate-500">
+            <div class="flex flex-col items-center justify-center py-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+              </svg>
+              <p class="text-lg font-medium">No flags available</p>
+              <p class="text-sm text-slate-400 mt-1">Create your first feature flag to get started</p>
             </div>
           </td>
         </tr>
-        <div>
-          <div *ngIf="flag.featureSegments.length > 0; else noSegments">
-            <ul class="list-inside text-blue-500 px-2">
-              <li
-                class="mb-2 flex items-center justify-between"
-                *ngFor="let segment of flag.featureSegments"
-              >
-                <div>{{ segment.property }}</div>
-                -
-                <div>{{ segment.operator }}</div>
-                -
-                <div>{{ segment.value }}</div>
-                <button class="btn btn-error btn-xs">Remove</button>
-              </li>
-            </ul>
-          </div>
-          <ng-template #noSegments>
-            <div class="text-sm text-red-700 italic px-2">Segment yok</div>
-          </ng-template>
-        </div>
-      </ng-container>
-
-      }
-    </tbody>
-  </table>
+        }@else {
+        <ng-container *ngFor="let flag of flags; let i = index">
+          <tr [ngClass]="{'bg-slate-50': i % 2 === 0}" class="border-t border-slate-100 hover:bg-sky-50 transition-colors duration-150">
+            <td class="p-4 font-medium text-slate-700">{{ flag.name }}</td>
+            <td class="p-4 font-mono text-sm text-slate-600">{{ flag.key }}</td>
+            <td class="p-4 text-slate-600">{{ flag.description }}</td>
+            <td class="p-4">
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  [checked]="flag.isEnabled"
+                  class="toggle toggle-primary bg-slate-200"
+                />
+                <span class="ml-2 text-sm" [ngClass]="flag.isEnabled ? 'text-green-600' : 'text-slate-500'">
+                  {{ flag.isEnabled ? 'Active' : 'Inactive' }}
+                </span>
+              </div>
+            </td>
+            <td class="p-4">
+              <div class="flex gap-2">
+                <button class="btn btn-info btn-sm" (click)="evaluate(flag)">
+                  Evaluate
+                </button>
+                <button
+                  (click)="openAddRuleDialog(flag.id)"
+                  class="btn btn-accent btn-sm"
+                >
+                  Rule Ekle
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr [ngClass]="{'bg-slate-50': i % 2 === 0}" class="border-t border-slate-100">
+            <td colspan="5" class="px-4 pb-4">
+              <div *ngIf="flag.featureSegments.length > 0; else noSegments" class="mt-2">
+                <div class="text-xs uppercase tracking-wide font-semibold text-slate-500 mb-2">Segments</div>
+                <ul class="space-y-2">
+                  <li
+                    class="flex items-center justify-between bg-sky-50 rounded-md p-2 text-sm"
+                    *ngFor="let segment of flag.featureSegments"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="font-medium text-slate-700">{{ segment.property }}</span>
+                      <span class="text-slate-500">{{ segment.operator }}</span>
+                      <span class="font-medium text-slate-700">{{ segment.value }}</span>
+                    </div>
+                    <button class="btn btn-error btn-xs">Remove</button>
+                  </li>
+                </ul>
+              </div>
+              <ng-template #noSegments>
+                <div class="text-sm text-slate-400 italic mt-2 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Segment yok
+                </div>
+              </ng-template>
+            </td>
+          </tr>
+        </ng-container>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
