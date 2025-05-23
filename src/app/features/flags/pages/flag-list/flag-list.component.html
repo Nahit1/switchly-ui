@@ -83,6 +83,7 @@
                 <input
                   type="checkbox"
                   [checked]="flag.isEnabled"
+                  (change)="toggleFlag(flag)"
                   class="toggle toggle-primary bg-slate-200"
                 />
                 <span
@@ -137,7 +138,12 @@
                         segment.value
                       }}</span>
                     </div>
-                    <button class="btn btn-error btn-xs">Remove</button>
+                    <button
+                      (click)="removeSegmentRule(segment.id)"
+                      class="btn btn-error btn-xs"
+                    >
+                      Remove
+                    </button>
                   </li>
                 </ul>
               </div>

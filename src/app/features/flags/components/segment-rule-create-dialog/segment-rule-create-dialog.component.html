@@ -1,44 +1,57 @@
-<h2 class="text-lg font-bold text-gray-500 mb-4">Yeni Segment Kuralı Ekle</h2>
-
-<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4 text-gray-500">
-  <div>
-    <label class="block text-sm font-medium">Property</label>
-    <input formControlName="property" class="w-full input" />
+<div class="bg-white p-6 w-[450px]">
+  <div class="mb-6">
+    <h2 class="text-xl font-bold text-slate-800">Yeni Segment Kuralı Ekle</h2>
   </div>
 
-  <!-- <div>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5">
+    <div>
+      <label class="block text-sm font-medium">Property</label>
+      <input
+        formControlName="property"
+        class="w-full border border-slate-200 px-4 py-2.5 rounded-md focus:ring-2 focus:ring-primary-color/20"
+      />
+    </div>
+
+    <!-- <div>
+      <label class="block text-sm font-medium">Operatör</label>
+      <input formControlName="operator" class="w-full border px-2 py-1 rounded" />
+    </div> -->
     <label class="block text-sm font-medium">Operatör</label>
-    <input formControlName="operator" class="w-full border px-2 py-1 rounded" />
-  </div> -->
-  <label class="block text-sm font-medium">Operatör</label>
-  <select class="select" formControlName="operator">
-    <option value="equals">Equals</option>
-    <option value="contains">Contains</option>
-    <option value="except">Except</option>
-  </select>
+    <select
+      class="select w-full border border-slate-200 px-4 py-2.5 rounded-md focus:ring-2 focus:ring-primary-color/20"
+      formControlName="operator"
+    >
+      <option value="equals">Equals</option>
+      <option value="contains">Contains</option>
+      <option value="except">Except</option>
+    </select>
 
-  <div>
-    <label class="block text-sm font-medium">Değer</label>
-    <input formControlName="value" class="w-full input" />
-  </div>
+    <div>
+      <label class="block text-sm font-medium">Değer</label>
+      <input
+        formControlName="value"
+        class="w-full border border-slate-200 px-4 py-2.5 rounded-md focus:ring-2 focus:ring-primary-color/20"
+      />
+    </div>
 
-  <div>
-    <label class="block text-sm font-medium">Rollout (%)</label>
-    <input
-      type="number"
-      formControlName="rolloutPercentage"
-      min="0"
-      max="100"
-      class="w-full input"
-    />
-  </div>
+    <div>
+      <label class="block text-sm font-medium">Rollout (%)</label>
+      <input
+        type="number"
+        formControlName="rolloutPercentage"
+        min="0"
+        max="100"
+        class="w-full border border-slate-200 px-4 py-2.5 rounded-md focus:ring-2 focus:ring-primary-color/20"
+      />
+    </div>
 
-  <div class="flex justify-end gap-2">
-    <button type="button" (click)="cancel()" class="px-4 py-1 border rounded">
-      Vazgeç
-    </button>
-    <button type="submit" class="bg-blue-600 text-white px-4 py-1 rounded">
-      Kaydet
-    </button>
-  </div>
-</form>
+    <div class="flex justify-end gap-2">
+      <button type="button" (click)="cancel()" class="px-4 py-1 border rounded">
+        Vazgeç
+      </button>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-1 rounded">
+        Kaydet
+      </button>
+    </div>
+  </form>
+</div>
